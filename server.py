@@ -1,7 +1,9 @@
 import web
 import nav
+import footer
 
 from DB import Db
+
 web.config.debug = True
 
 urls = (
@@ -56,6 +58,7 @@ class index:
             result +='<td>'+str(track.Composer)+'</td>'
             result +='<td>'+str(track.UnitPrice)+'</td>'
         result += '</table>'
+        result += footer.footer()
         result += '</body></html> '
         return result
 if __name__ == "__main__":
