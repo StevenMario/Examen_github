@@ -23,12 +23,54 @@ class index:
         tracks=db.select('Track',limit=10)
         result='<html><head><title>test</title>'
         result += '<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.css"> '
-        result += '</head><body> '
+        result += """
+            <style>
+                body{
+                    background-image: url(https://images.pexels.com/photos/4813830/pexels-photo-4813830.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=loadhttps://images.pexels.com/photos/4813830/pexels-photo-4813830.jpeg?auto=compress&cs=tinysrgb&w=600&lazy=load);
+                    background-size: 100% auto;
+                    background-repeat:no-repeat;
+                    min-height: 100vh;
+                    display: flex;
+                    flex-direction: column;
+                }
+                button{
+                    margin-left:47%;
+                    margin-top:10px;
+                    width:200px;
+                    padding:5px;
+                    font-size:21px;
+                    border-size:24px;
+                }
+                footer{
+                    margin-top: auto;
+                    width: 100%;
+                }
+                #welcome h1{
+                    color:#ffff;
+                    font-size:64px;
+                    margin-left:45%;
+                    margin-top:13%;
+                }
+            </style>
+            <script>
+               function hideButton() {
+               var button = document.getElementsByTagName("button")[0];
+               var text = document.getElementById("classement");
+               var welcome = document.getElementById("welcome");
+               button.style.display = "none";
+               welcome.style.display = "none";
+               classement.style.display = "block";      
+               }
+            </script>
 
+        """
+        result += '</head><body> '
         ##voici les liens
         result += nav.nav()
-        result += '<h1 class="row justify-content-center align-items-center"><dl>Tableau des "artistes"</dl></h1>'
-        result += '<p class="row justify-content-center align-items-center">Voici le tableau classant les "artistes", leurs Id ,leur genre de music, et un album de chaque artistes</p>'
+        result += """<div id="welcome"><h1>Bienvenue</h1></div>"""
+        result += """<button class="btn btn-outline-info" onclick="hideButton()">Voir classement</button>"""
+        result += '<div id="classement" style="display:none;">'
+        result += '<br><br>'
         result += '<table border="1" class="table">'
         result += '<tr class="table-success"><th>Id_artists</th><th>Artiste</th><th>Album</th><th>Genre</th><th>Playlist</th></tr> '
         for album in albums:
@@ -46,22 +88,10 @@ class index:
             result +='<td>'+album.Title+'</td>'           
             result += '</tr>'
         result += '</table>'
-        result += '<br>'
-        result += '<hr>'
-        result += '<br>'
-        result += '<h1><dl>classement des "tracks"</dl></h1>'
-        result += '<p>Voici le tableau classant les "tracks", leurs compositeurs et le prix unitaire</p>'
-        result += '<table border="1" class="table">'
-        result += '<tr class="table-success"><th>id-track</th><th>tracks</th><th>Compositeurs</th><th>prix unitaire</th></tr>'
-        for track in tracks:
-            result += '<tr  class="p-3 mb-2 bg-secondary text-white">.bg-secondary>'
-            result += '<td>'+str(track.TrackId)+'</td>'
-            result += '<td>'+track.Name+'</td>'
-            result +='<td>'+str(track.Composer)+'</td>'
-            result +='<td>'+str(track.UnitPrice)+'</td>'
-        result += '</table>'
+        result += '</div>'
+        result += '</body>'        
         result += footer.footer()
-        result += '</body></html> '
+        result += '</html>'
         return result
 if __name__ == "__main__":
     app = web.application(urls, globals())
