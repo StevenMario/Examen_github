@@ -3,11 +3,13 @@ import nav
 import footer
 
 from DB import Db
+from list_artist import artist
 
 web.config.debug = True
 
 urls = (
-    '/', 'index'
+    '/', 'index',
+    '/artist', 'artist' ##url vers la class artistes, à indiquer comme suivant href="/artist"
 )
 
 class index:
